@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "1.0",
+  "releaseId": "RN-SYNTH-0005",
+  "timestamp": "2026-06-13T12:00:00Z",
+  "source": {
+    "system": "Synthetic Workflow Studio",
+    "method": "automation",
+    "actorType": "service"
+  },
+  "environment": "uat",
+  "changeType": "workflow",
+  "component": {
+    "id": "WF-SYNTH-INVOICE-ROUTING",
+    "name": "Synthetic Invoice Routing",
+    "type": "approval workflow"
+  },
+  "businessReason": "Demonstrate a fail-closed rejection when test evidence fails.",
+  "beforeEvidence": [
+    {
+      "kind": "snapshot",
+      "label": "Invoice routing before change",
+      "artifactRef": "artifact://synthetic/invoice/before.json",
+      "sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+    }
+  ],
+  "afterEvidence": [
+    {
+      "kind": "snapshot",
+      "label": "Invoice routing after change",
+      "artifactRef": "artifact://synthetic/invoice/after.json",
+      "sha256": "6666666666666666666666666666666666666666666666666666666666666666"
+    }
+  ],
+  "testEvidence": [
+    {
+      "name": "Escalation timeout test",
+      "status": "failed",
+      "summary": "The synthetic escalation did not reach the final stage.",
+      "artifactRef": "artifact://synthetic/tests/failed-escalation.json"
+    }
+  ],
+  "impact": {
+    "audience": ["Synthetic invoice processors"],
+    "summary": "A failed test prevents the synthetic release from progressing.",
+    "downtimeExpected": false
+  },
+  "risk": {
+    "level": "high",
+    "reasons": ["Failed escalation could leave synthetic requests unassigned."]
+  },
+  "rollback": {
+    "available": true,
+    "plan": "Restore the prior synthetic routing snapshot and repeat testing.",
+    "ownerRole": "Workflow maintainer",
+    "estimatedMinutes": 20
+  },
+  "changeHash": "61f3aebfde155f6a5c6c11edf3e696289f1088588e276dce93524baf1c6725b0",
+  "metadata": {
+    "demoScenario": "public-rejected-reference"
+  }
+}

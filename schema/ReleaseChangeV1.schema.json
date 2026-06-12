@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/ReleaseChangeV1.schema.json",
+  "title": "ReleaseChangeV1",
+  "description": "A synthetic, evidence-backed description of a releasable business application change.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "releaseId",
+    "timestamp",
+    "source",
+    "environment",
+    "changeType",
+    "component",
+    "businessReason",
+    "beforeEvidence",
+    "afterEvidence",
+    "testEvidence",
+    "impact",
+    "risk",
+    "rollback",
+    "changeHash"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "releaseId": {
+      "type": "string",
+      "pattern": "^RN-SYNTH-[0-9]{4}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["system", "method", "actorType"],
+      "properties": {
+        "system": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 80
+        },
+        "method": {
+          "enum": ["ui", "cli", "automation"]
+        },
+        "actorType": {
+          "enum": ["human", "agent", "service"]
+        }
+      }
+    },
+    "environment": {
+      "enum": ["dev", "test", "uat", "prod"]
+    },
+    "changeType": {
+      "enum": [
+        "workflow",
+        "form",
+        "sharepoint-schema",
+        "database-schema",
+        "other"
+      ]
+    },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "type"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Z0-9][A-Z0-9._-]{2,79}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120
+        },
+        "type": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80
+        }
+      }
+    },
+    "businessReason": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 1000
+    },
+    "beforeEvidence": {
+      "$ref": "#/$defs/evidenceCollection"
+    },
+    "afterEvidence": {
+      "$ref": "#/$defs/evidenceCollection"
+    },
+    "testEvidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/testResult"
+      }
+    },
+    "impact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["audience", "summary", "downtimeExpected"],
+      "properties": {
+        "audience": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 80
+          }
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 1000
+        },
+        "downtimeExpected": {
+          "type": "boolean"
+        }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "reasons"],
+      "properties": {
+        "level": {
+          "enum": ["low", "medium", "high", "critical"]
+        },
+        "reasons": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 300
+          }
+        }
+      }
+    },
+    "rollback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["available", "plan", "ownerRole", "estimatedMinutes"],
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "plan": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 1000
+        },
+        "ownerRole": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 80
+        },
+        "estimatedMinutes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1440
+        }
+      }
+    },
+    "changeHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "maxLength": 500
+      }
+    }
+  },
+  "$defs": {
+    "evidenceCollection": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "label", "artifactRef", "sha256"],
+      "properties": {
+        "kind": {
+          "enum": ["snapshot", "export", "diff", "screenshot", "manifest"]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120
+        },
+        "artifactRef": {
+          "type": "string",
+          "pattern": "^artifact://synthetic/[a-z0-9][a-z0-9/._-]{2,255}$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "testResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "status", "summary"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120
+        },
+        "status": {
+          "enum": ["passed", "failed", "not-run"]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 500
+        },
+        "artifactRef": {
+          "type": "string",
+          "pattern": "^artifact://synthetic/[a-z0-9][a-z0-9/._-]{2,255}$"
+        }
+      }
+    }
+  }
+}
+

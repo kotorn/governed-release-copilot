@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0",
+  "releaseId": "RN-SYNTH-0004",
+  "timestamp": "2026-06-13T11:00:00Z",
+  "source": {
+    "system": "Synthetic Workflow Studio",
+    "method": "ui",
+    "actorType": "human"
+  },
+  "environment": "test",
+  "changeType": "form",
+  "component": {
+    "id": "FORM-SYNTH-REQUEST",
+    "name": "Synthetic Request Form",
+    "type": "request form"
+  },
+  "businessReason": "Demonstrate a request that needs more evidence before drafting.",
+  "beforeEvidence": [
+    {
+      "kind": "snapshot",
+      "label": "Synthetic form before change",
+      "artifactRef": "artifact://synthetic/form/before.json",
+      "sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+    }
+  ],
+  "testEvidence": [],
+  "impact": {
+    "audience": ["Synthetic requesters"],
+    "summary": "The incomplete sample demonstrates a NeedsInput decision.",
+    "downtimeExpected": false
+  },
+  "risk": {
+    "level": "low",
+    "reasons": ["Missing evidence prevents downstream processing."]
+  },
+  "rollback": {
+    "available": true,
+    "plan": "Keep the current synthetic form until evidence is complete.",
+    "ownerRole": "Form maintainer",
+    "estimatedMinutes": 5
+  },
+  "changeHash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "metadata": {
+    "demoScenario": "public-needs-input-reference"
+  }
+}
+

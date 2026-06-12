@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0",
+  "releaseId": "RN-SYNTH-0003",
+  "timestamp": "2026-06-13T10:00:00Z",
+  "source": {
+    "system": "Synthetic Workflow Studio",
+    "method": "cli",
+    "actorType": "agent"
+  },
+  "environment": "unknown",
+  "changeType": "workflow",
+  "component": {
+    "id": "WF-SYNTH-ORDER-APPROVAL",
+    "name": "Synthetic Order Approval",
+    "type": "approval workflow"
+  },
+  "businessReason": "Demonstrate that schema-invalid synthetic input fails closed.",
+  "beforeEvidence": [],
+  "afterEvidence": [],
+  "testEvidence": [],
+  "impact": {
+    "audience": ["Synthetic requesters"],
+    "summary": "This payload is intentionally invalid and must never progress.",
+    "downtimeExpected": false
+  },
+  "risk": {
+    "level": "low",
+    "reasons": ["The sample is intentionally invalid."]
+  },
+  "rollback": {
+    "available": true,
+    "plan": "Discard the intentionally invalid synthetic sample.",
+    "ownerRole": "Demo maintainer",
+    "estimatedMinutes": 1
+  },
+  "changeHash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "metadata": {
+    "demoScenario": "public-invalid-reference"
+  }
+}
+
