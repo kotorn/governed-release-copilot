@@ -1,0 +1,3 @@
+1
+00:02:20,000 --> 00:02:55,000
+ReadyForApproval is not publication. It means the evidence and proposed draft are ready for a person to review. The human approver can accept the communication, reject it, or return it for correction. This boundary keeps accountability with the business and technical owners. It also separates useful AI assistance from autonomous release authority. The public repository models that boundary in code and architecture without pretending to reproduce private tenant approvals.

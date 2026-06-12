@@ -1,0 +1,3 @@
+1
+00:01:40,000 --> 00:02:20,000
+The policy fails closed in four visible states. Complete and valid evidence becomes ReadyForApproval. Missing artifacts or a test that has not run becomes NeedsInput. A previously accepted canonical hash becomes Duplicate. Schema errors, hash mismatch, failed tests, or unavailable rollback become Rejected. These decisions are deterministic and covered by pytest. AI is deliberately downstream of these gates, so it cannot invent missing evidence or turn an unsafe request into an approvable release.

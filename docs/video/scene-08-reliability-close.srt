@@ -1,0 +1,3 @@
+1
+00:04:15,000 --> 00:04:50,000
+Reliability is visible in the repository. Pytest proves the four fail-closed outcomes. The privacy scanner rejects identity shapes, tenant domains, internal paths, and real-looking ticket numbers. Gitleaks scans the working tree and every fetched Git ref. The architecture is editable Mermaid plus a rendered image. Narration and captions are generated from the same frozen text. Gemini and Veo may polish the presentation, but they do not create product evidence. Evidence in, approval enforced, trusted answers out.

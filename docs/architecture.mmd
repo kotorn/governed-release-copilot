@@ -1,0 +1,28 @@
+%%{init: {"theme": "base", "themeVariables": {"fontSize": "18px", "primaryColor": "#eef4ff", "primaryTextColor": "#172033", "primaryBorderColor": "#315ea8", "lineColor": "#51627a", "secondaryColor": "#eaf9f5", "tertiaryColor": "#fff4e8"}}}%%
+flowchart TB
+    subgraph S1["1. Evidence contract"]
+        A["Synthetic change evidence"] --> B["ReleaseChangeV1 payload"]
+    end
+
+    subgraph S2["2. Deterministic governance"]
+        C["Schema and canonical hash validation"] --> D{"Fail-closed policy"}
+        D -->|"Missing evidence"| E["NeedsInput"]
+        D -->|"Known hash"| F["Duplicate"]
+        D -->|"Unsafe evidence"| G["Rejected"]
+        D -->|"All gates pass"| H["ReadyForApproval"]
+    end
+
+    subgraph S3["3. Human-controlled publication"]
+        H --> I["Structured AI draft"]
+        I --> J["Human approval"]
+        J -->|"Rejected"| K["Return to draft"]
+        J -->|"Approved"| L["Approved SharePoint release notes"]
+    end
+
+    subgraph S4["4. Grounded answers"]
+        L --> M["Copilot Studio Q&A with citation"]
+        N["Work IQ context"] --> M
+    end
+
+    B --> C
+    O["Python pytest, privacy, and gitleaks gates"] -. "public reproducibility" .-> C
