@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.21/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.21",
+  "version": "1.0.0",
+  "id": "d0e86b2b-0f2d-4824-a212-32a138c23249",
+  "packageName": "com.microsoft.governedreleaseagent",
+  "developer": {
+    "name": "Asahi Kasei BPA Team",
+    "websiteUrl": "https://github.com/kotorn/governed-release-copilot",
+    "privacyUrl": "https://github.com/kotorn/governed-release-copilot/privacy",
+    "termsOfUseUrl": "https://github.com/kotorn/governed-release-copilot/terms"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "Governed Release Copilot",
+    "full": "Governed Release Note Intelligence Agent"
+  },
+  "description": {
+    "short": "Turns evidence-backed changes into a governed release story.",
+    "full": "Governed Release Copilot validates ReleaseChangeV1 schema and canonical hashes, detects duplicates, enforces human-in-the-loop approvals, and publishes approved knowledge to SharePoint, powering citation-backed Q&A in Microsoft 365 Copilot."
+  },
+  "accentColor": "#008080",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "governedReleaseAgent",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  },
+  "permissions": [
+    "identity",
+    "messageRead"
+  ],
+  "validDomains": []
+}

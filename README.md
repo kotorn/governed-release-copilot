@@ -32,6 +32,7 @@ was tested. This reference addresses that risk with a normalized
 | Invalid input, hash mismatch, failed tests, or unavailable rollback fail closed. | [Validator tests](tests/test_validator.py), [policy tests](tests/test_policy.py), and [rejected sample](samples/rejected.json) |
 | Public content is scanned for tenant data and secrets. | [Privacy scanner](scripts/privacy_scan.py), [scanner tests](tests/test_privacy_scan.py), and [CI workflow](.github/workflows/verify.yml) |
 | Video narration and captions are frozen and checked for parity. | [Video manifest](docs/video/README.md) and [documentation tests](tests/test_docs.py) |
+| Validation tools are exposed as Model Context Protocol (MCP) tools for Microsoft 365 Copilot. | [MCP server](src/governed_release_copilot/mcp_server.py), [MCP tests](tests/test_mcp_server.py), and [appPackage](appPackage) |
 
 ## Governance Model
 
@@ -84,6 +85,12 @@ The optional duplicate registry is a JSON array of accepted hashes:
 grc-validate --registry accepted-hashes.json samples/duplicate.json
 ```
 
+Run the Model Context Protocol (MCP) server:
+
+```powershell
+python src/governed_release_copilot/mcp_server.py
+```
+
 ## Submission Package
 
 - [Architecture source](docs/architecture.mmd) and
@@ -93,6 +100,8 @@ grc-validate --registry accepted-hashes.json samples/duplicate.json
 - [Eight-scene narration and captions](docs/video/README.md)
 - [Synthetic payloads](samples)
 - [GitHub Actions verification](.github/workflows/verify.yml)
+- [Declarative Agent package (manifest, agent configuration, API plugin, logo)](appPackage)
+- [Python Model Context Protocol (MCP) server](src/governed_release_copilot/mcp_server.py) and [Toolkit config](.vscode/mcp.json)
 
 ## AI Production Transparency
 

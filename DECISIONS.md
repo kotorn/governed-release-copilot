@@ -16,6 +16,7 @@ This log records judgment calls made while building the public package.
 | D10 | Use Gemini only for narration support and Veo only for optional intro or outro polish. | Keeps Google AI outside the product proof and makes the production method transparent. |
 | D11 | Generate captions from frozen scene text and test word-for-word parity. | Prevents transcription drift in product terms such as `ReleaseChangeV1`. |
 | D12 | Mark live Copilot Studio, SharePoint, Power Automate, and Work IQ proof as `OWNER-TODO`. | Tenant work is outside this public-package scope and must not be fabricated. |
+| D13 | Package the validation and policy engines as a Python MCP server and a Declarative Agent app package. | Fits the hackathon's "Enterprise Agents" track requirements and earns higher rating by showing ATK compatibility. |
 
 ## Owner TODO
 

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "governed-release-copilot": {
+      "command": "python",
+      "args": [
+        "src/governed_release_copilot/mcp_server.py"
+      ]
+    }
+  }
+}

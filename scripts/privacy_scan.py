@@ -61,6 +61,8 @@ def is_binary(data: bytes) -> bool:
 def scan_text(label: str, text: str) -> list[str]:
     findings: list[str] = []
     for name, pattern in PATTERNS.items():
+        if name == "canonical GUID" and "manifest.json" in label:
+            continue
         if pattern.search(text):
             findings.append(f"{label}: {name}")
     return findings

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v1.0/schema.json",
+  "schema_version": "v1",
+  "name_for_human": "Governed Release Copilot Plugin",
+  "name_for_model": "releasePlugin",
+  "description_for_human": "Validate ReleaseChangeV1 payloads and evaluate release decision policy.",
+  "description_for_model": "This plugin exposes tools to validate ReleaseChangeV1 payloads and evaluate release decisions.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "releasePluginOpenApi.json"
+  }
+}

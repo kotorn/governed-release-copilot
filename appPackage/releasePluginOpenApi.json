@@ -1,0 +1,100 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Governed Release Copilot API",
+    "description": "API for validating ReleaseChangeV1 schema and evaluating release decisions.",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Local MCP Bridge Server"
+    }
+  ],
+  "paths": {
+    "/tools/validate_release_change": {
+      "post": {
+        "operationId": "validateReleaseChange",
+        "summary": "Validate a ReleaseChangeV1 JSON payload",
+        "description": "Validates schema correctness and hash matching.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "payload_json": {
+                    "type": "string",
+                    "description": "Raw JSON string of ReleaseChangeV1 payload"
+                  }
+                },
+                "required": ["payload_json"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Validation results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "valid": { "type": "boolean" },
+                    "errors": { "type": "array", "items": { "type": "string" } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools/evaluate_release_decision": {
+      "post": {
+        "operationId": "evaluateReleaseDecision",
+        "summary": "Evaluate a ReleaseChangeV1 payload decision",
+        "description": "Runs decision policy (ReadyForApproval, NeedsInput, Duplicate, Rejected).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "payload_json": {
+                    "type": "string",
+                    "description": "Raw JSON string of ReleaseChangeV1 payload"
+                  },
+                  "registry_json": {
+                    "type": "string",
+                    "description": "Optional JSON array string of accepted hashes"
+                  }
+                },
+                "required": ["payload_json"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Decision result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "decision": { "type": "string" },
+                    "reasons": { "type": "array", "items": { "type": "string" } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

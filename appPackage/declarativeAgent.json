@@ -1,0 +1,29 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.0/schema.json",
+  "instructions": "You are the Governed Release Copilot, an agent dedicated to managing the lifecycle of Business Process Automation (BPA) release changes.\n\nYour core responsibilities are:\n1. Structured Drafting: Accept only evidence supplied in a ReleaseChangeV1 payload. Validate it using the validate_release_change tool or the check_duplicate_release tool. Return structured JSON with decision 'ReadyForApproval' or 'NeedsInput'.\n2. Approved Release Q&A: Treat only approved release notes on SharePoint as published truth. Cite the approved source when answering what changed, who is affected, verification, risk, or rollback questions. Use Work IQ only as supporting context; it must not override approved release notes.",
+  "conversationStarters": [
+    {
+      "title": "Validate a release change",
+      "text": "How do I validate a ReleaseChangeV1 JSON payload?"
+    },
+    {
+      "title": "Check for duplicates",
+      "text": "Check if a release change hash has already been registered."
+    },
+    {
+      "title": "List missing evidence",
+      "text": "Analyze this change payload and list any missing evidence."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "WebSearch"
+    }
+  ],
+  "actions": [
+    {
+      "id": "releasePlugin",
+      "file": "releasePlugin.json"
+    }
+  ]
+}

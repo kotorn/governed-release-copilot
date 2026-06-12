@@ -22,6 +22,9 @@ and citation-backed answers.
 - Canonical SHA-256 hash for retry-safe duplicate detection.
 - Deterministic fail-closed outcomes for ready, missing, duplicate, and
   rejected submissions.
+- Model Context Protocol (MCP) server exposing validation and decision tools.
+- Declarative Agent app package (manifest.json, declarativeAgent.json, API plugin, OpenAPI spec) for Teams / Microsoft 365 sideloading.
+- Microsoft 365 Agents Toolkit configuration for developer experience.
 - Structured AI drafting boundary followed by human approval.
 - Approved SharePoint release notes as the intended knowledge source.
 - Copilot Studio Q&A with citations from approved notes.
@@ -29,10 +32,7 @@ and citation-backed answers.
 
 ## Microsoft Technologies And IQ
 
-The target enterprise architecture uses Copilot Studio for agent experiences,
-Power Automate for orchestration and approval, SharePoint for approved
-publication, and Work IQ for organizational context. Work IQ may enrich
-retrieval, but it does not override the approved release-note boundary.
+The target enterprise architecture uses Microsoft 365 Copilot with the Microsoft 365 Agents Toolkit (ATK) for Declarative Agent (DA) and Model Context Protocol (MCP) integration, Copilot Studio for agent experiences, Power Automate for orchestration and approval, SharePoint for approved publication, and Work IQ for organizational context. Work IQ may enrich retrieval, but it does not override the approved release-note boundary.
 
 **OWNER-TODO:** attach sanitized live evidence of the Microsoft IQ
 configuration and citation behavior before submission.
