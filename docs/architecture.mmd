@@ -4,7 +4,7 @@ flowchart TB
         A["Synthetic change evidence"] --> B["ReleaseChangeV1 payload"]
     end
 
-    subgraph S2["2. Deterministic governance"]
+    subgraph S2["2. Deterministic validation"]
         C["Schema and canonical hash validation"] --> D{"Fail-closed policy"}
         D -->|"Missing evidence"| E["NeedsInput"]
         D -->|"Known hash"| F["Duplicate"]
@@ -13,16 +13,16 @@ flowchart TB
     end
 
     subgraph S3["3. Human-controlled publication"]
-        H --> I["Structured AI draft"]
+        H --> I["Governed AI draft"]
         I --> J["Human approval"]
         J -->|"Rejected"| K["Return to draft"]
         J -->|"Approved"| L["Approved SharePoint release notes"]
     end
 
     subgraph S4["4. Grounded answers"]
-        L --> M["Copilot Studio Q&A with citation"]
+        L --> M["Citation-grounded Copilot Q&A"]
         N["Work IQ context"] --> M
     end
 
     B --> C
-    O["Python pytest, privacy, and gitleaks gates"] -. "public reproducibility" .-> C
+    O["Python pytest, Pester, privacy, and gitleaks gates"] -. "public reproducibility" .-> C

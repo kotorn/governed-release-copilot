@@ -2,6 +2,9 @@
 
 The eight scene files are the narration source of truth. Each matching SRT file
 contains the same words and punctuation; captions are not auto-transcribed.
+The public story they describe is:
+
+**Change Evidence → Deterministic Validation → Governed AI Draft → Human Approval → Approved Knowledge → Citation-Grounded Q&A**
 
 ## Pronunciation
 
@@ -25,4 +28,5 @@ contains the same words and punctuation; captions are not auto-transcribed.
 
 Gemini may narrate these frozen files using one voice and one session. Veo may
 add a sanitized six-second intro and outro. Those tools do not generate
-product UI or product evidence.
+product UI or product evidence. If the final polished cut is not ready, the
+owner may submit the existing backup MP4 as the minimum viable demo.

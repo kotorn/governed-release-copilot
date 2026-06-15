@@ -5,8 +5,8 @@
 Governed Release Copilot is a synthetic public reference for turning business
 application change evidence into a controlled release story:
 
-**Change Evidence → AI Draft → Human Approval → SharePoint Knowledge → Agent
-Q&A with Citation**
+**Change Evidence → Deterministic Validation → Governed AI Draft → Human
+Approval → Approved Knowledge → Citation-Grounded Q&A**
 
 The repository proves the contract and fail-closed governance behavior without
 requiring a Microsoft tenant or exposing organization data. The exact
@@ -30,6 +30,7 @@ was tested. This reference addresses that risk with a normalized
 | Missing evidence becomes `NeedsInput`. | [Policy test](tests/test_policy.py) and [missing-fields sample](samples/missing-fields.json) |
 | A previously accepted canonical hash becomes `Duplicate`. | [Policy test](tests/test_policy.py) and [duplicate sample](samples/duplicate.json) |
 | Invalid input, hash mismatch, failed tests, or unavailable rollback fail closed. | [Validator tests](tests/test_validator.py), [policy tests](tests/test_policy.py), and [rejected sample](samples/rejected.json) |
+| A PowerShell submitter validates the public contract before any POST. | [Submit-BpaReleaseChange module](src/SubmitBpaReleaseChange/SubmitBpaReleaseChange.psm1) and [Pester integration tests](tests/powershell/SubmitBpaReleaseChange.Tests.ps1) |
 | Public content is scanned for tenant data and secrets. | [Privacy scanner](scripts/privacy_scan.py), [scanner tests](tests/test_privacy_scan.py), and [CI workflow](.github/workflows/verify.yml) |
 | Video narration and captions are frozen and checked for parity. | [Video manifest](docs/video/README.md) and [documentation tests](tests/test_docs.py) |
 | Validation tools are exposed as Model Context Protocol (MCP) tools for Microsoft 365 Copilot. | [MCP server](src/governed_release_copilot/mcp_server.py), [MCP tests](tests/test_mcp_server.py), and [appPackage](appPackage) |
@@ -46,8 +47,10 @@ Rejected          invalid schema/hash, failed tests, or no rollback
 No public decision publishes content. `ReadyForApproval` means only that a
 human may review the proposed AI draft. The
 [architecture diagram](docs/architecture.png) shows the approval and approved
-knowledge boundaries, while [DECISIONS.md](DECISIONS.md) records the policy
-choices.
+knowledge boundaries. ADO remains the private engineering ledger, SharePoint
+remains the intended approved publication boundary, and GitHub remains the
+synthetic public reference. [DECISIONS.md](DECISIONS.md) records the policy
+choices and final-run truthfulness constraints.
 
 ## Architecture
 
@@ -56,19 +59,23 @@ choices.
 The editable source is [docs/architecture.mmd](docs/architecture.mmd). Work IQ
 is shown as a context source for citation-backed Q&A; approved SharePoint
 release notes remain the publication boundary. Live tenant proof is explicitly
-listed as an owner action in [DECISIONS.md](DECISIONS.md).
+listed as an owner action in [DECISIONS.md](DECISIONS.md) and must be labeled
+`not live-verified in final run` when fresh tenant evidence is unavailable.
 
 ## Run Locally
 
 Prerequisites:
 
 - Python 3.12
+- PowerShell 7.4
+- Pester 5.7.1
 - gitleaks 8.30.1
 
 ```powershell
 python -m pip install -r requirements-dev.txt -e .
 python -m pytest -q
 python scripts/verify.py
+pwsh ./scripts/verify.ps1
 ```
 
 Evaluate the synthetic samples:
@@ -85,6 +92,13 @@ The optional duplicate registry is a JSON array of accepted hashes:
 grc-validate --registry accepted-hashes.json samples/duplicate.json
 ```
 
+Exercise the PowerShell submission boundary against a loopback mock:
+
+```powershell
+Import-Module ./src/SubmitBpaReleaseChange/SubmitBpaReleaseChange.psd1 -Force
+Invoke-Pester ./tests/powershell
+```
+
 Run the Model Context Protocol (MCP) server:
 
 ```powershell
@@ -97,6 +111,12 @@ python src/governed_release_copilot/mcp_server.py
   [rendered PNG](docs/architecture.png)
 - [Evidence matrix](docs/evidence-matrix.md)
 - [Submission-form draft](docs/submission.md)
+- [Project overview](docs/project-overview.md)
+- [Feature contract](docs/FEATURES.md)
+- [Flow contract](docs/flow-contract.md)
+- [Release contract](docs/RELEASECHANGEV1-CONTRACT.md)
+- [State model](docs/STATE-MODEL.md)
+- [PowerShell submission boundary](src/SubmitBpaReleaseChange)
 - [Eight-scene narration and captions](docs/video/README.md)
 - [Synthetic payloads](samples)
 - [GitHub Actions verification](.github/workflows/verify.yml)
@@ -120,6 +140,14 @@ canonical GUIDs, tenant domains, internal hostnames, real-looking ticket IDs,
 credentials, private keys, and absolute user paths. CI also runs gitleaks over
 the working tree and all fetched Git refs through
 [scripts/verify.py](scripts/verify.py).
+
+## Final-Run Truthfulness
+
+This public repository is allowed to describe the intended Microsoft tenant
+architecture, but it must not imply that live Copilot Studio publish, fresh
+SharePoint citation, or Work IQ runtime retrieval were re-verified in the
+final run unless owner-supplied evidence exists. When that evidence is absent,
+the submission must say `not live-verified in final run`.
 
 ## License
 

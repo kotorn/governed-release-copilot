@@ -7,8 +7,8 @@
   "developer": {
     "name": "Asahi Kasei BPA Team",
     "websiteUrl": "https://github.com/kotorn/governed-release-copilot",
-    "privacyUrl": "https://github.com/kotorn/governed-release-copilot/privacy",
-    "termsOfUseUrl": "https://github.com/kotorn/governed-release-copilot/terms"
+    "privacyUrl": "https://github.com/kotorn/governed-release-copilot/blob/main/docs/PRIVACY-SCAN-RULES.md",
+    "termsOfUseUrl": "https://github.com/kotorn/governed-release-copilot/blob/main/LICENSE"
   },
   "icons": {
     "color": "color.png",

@@ -22,6 +22,8 @@ and citation-backed answers.
 - Canonical SHA-256 hash for retry-safe duplicate detection.
 - Deterministic fail-closed outcomes for ready, missing, duplicate, and
   rejected submissions.
+- Optional PowerShell submission boundary that validates the public contract
+  before any POST.
 - Model Context Protocol (MCP) server exposing validation and decision tools.
 - Declarative Agent app package (manifest.json, declarativeAgent.json, API plugin, OpenAPI spec) for Teams / Microsoft 365 sideloading.
 - Microsoft 365 Agents Toolkit configuration for developer experience.
@@ -36,6 +38,9 @@ The target enterprise architecture uses Microsoft 365 Copilot with the Microsoft
 
 **OWNER-TODO:** attach sanitized live evidence of the Microsoft IQ
 configuration and citation behavior before submission.
+
+If that evidence is not refreshed in the final run, describe it as
+`not live-verified in final run`.
 
 ## Reliability And Safety
 
@@ -55,6 +60,9 @@ https://github.com/kotorn/governed-release-copilot
 ## Demo Video
 
 **OWNER-TODO:** add the final public video URL.
+
+Use the existing backup MP4 first if no polished cut is ready. The public repo
+must not claim a fresher tenant demo than the owner can actually provide.
 
 ## Team And Learning Profile
 
